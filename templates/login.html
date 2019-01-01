@@ -1,10 +1,31 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% extends "base.html" %}
+
+{% block content %}
+
+    <div>
+        <!--action="" will post in the same route we are -->
+        <form method="POST" action="">
+            <!--{{ form.hidden_tag() }}  for csrf token and secret key -->
+            {{ form.hidden_tag() }}
+            <h5>Test login</h5>
+            {{ form.email.label() }}
+            {% if form.email.errors %}
+                {% for error in form.email.errors %}
+                    <span>{{ error }}</span>
+                {% endfor %}
+            {% endif %}
+            {{ form.email() }}
+            {{ form.password.label() }}
+            {% if form.password.errors %}
+                {% for error in form.password.errors %}
+                    <span>{{ error }}</span>
+                {% endfor %}
+            {% endif %}
+            {{ form.password() }}
+            {{ form.remember.label() }}
+            {{ form.remember() }}
+            {{ form.submit() }}
+        </form>
+    </div>
+
+{% endblock %}
