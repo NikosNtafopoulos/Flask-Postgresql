@@ -51,3 +51,20 @@ Filter by [example: first_name]
 ```
 ### Delete/Drop Table
 db.drop_all() 
+
+### Restructured the app to package
+```
+app/
+   static/
+   templates/
+   __init__.py
+   forms.py
+   models.py
+   routes.py
+app.py
+```
+Accessing now through command line
+```
+>>> from app import db
+>>> from app.models import Client,UserInfo
+```
