@@ -19,3 +19,35 @@ Open your terminal and type
 import secrets
 secrets.token_hex(16) 
 ```  
+##SQL ALCHEMY
+### Create a table through terminal
+open the terminal and type ``python3``   
+```
+>>> from flask import Flask  
+>>> from app import db
+>>> db.create_all()
+>>> from app import UserInfo
+>>> user_1 = UserInfo(first_name="nik",last_name='test',email='test@test.com',password='password')
+>>> db.session.add(user_1)
+>>> db.session.commit()
+```
+### Query the database
+TableName[model name].query.all()    
+```
+>>> UserInfo.query.all()
+[UserInfo('User: nik test')]   
+```
+Get first User
+```
+>>> UserInfo.query.first()
+```
+Filter by [example: first_name]
+```
+>>> UserInfo.query.filter_by(username='nik').all() 
+[UserInfo('User: nik test')]
+>>> nik = UserInfo.query.filter_by(first_name='nik').first()
+>>> nik.id
+1
+```
+### Delete/Drop Table
+db.drop_all() 
