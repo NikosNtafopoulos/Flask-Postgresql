@@ -67,4 +67,20 @@ Accessing now through command line
 ```
 >>> from app import db
 >>> from app.models import Client,UserInfo
+>>> user = UserInfo.query.all()
+
+```
+Import Bcrypt for hashing the passwords of our database
+```
+>>> from flask_bcrypt import Bcrypt
+>>> bcrypt = Bcrypt()
+>>> bcrypt.generate_password_hash('test')
+b'$2b$12$qMfyqcJGnZLpr6a7uOpHtu755qzC1nrK9MpnTe8MRPSYd3aFIUIJO'
+# to string
+>>> bcrypt.generate_password_hash('test').decode('utf-8')
+'$2b$12$gfvxz7AiqWZn11LdYIOrgeSOzkLsLrQAZr3CeES4MlOpZv.7I0zfW'
+verify if true
+>>> hashed = bcrypt.generate_password_hash('test').decode('utf-8')
+>>> bcrypt.check_password_hash(hashed,'test')
+True
 ```

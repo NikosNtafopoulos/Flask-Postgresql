@@ -1,5 +1,5 @@
 from flask import render_template,request,redirect,url_for,flash
-from app import app,db
+from app import app,db,bcrypt
 from app.models import Client,UserInfo
 from app.forms import ClientForm,ClientLoginForm
 @app.route('/')
@@ -27,8 +27,16 @@ def post_user():
 def register():
     form = ClientForm()
     if form.validate_on_submit():
-        flash(f'User {form.first_name.data} {form.last_name.data}has been created')
-        return redirect(url_for('index'))
+        # hash the password of the form
+        hashed = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
+        # create a new user/client instance with the form fields and commit to our database
+        user = UserInfo(first_name=form.first_name.data,
+                        last_name=form.last_name.data,email=form.email.data,
+                        password=hashed)
+        db.session.add(user)
+        db.session.commit()
+        flash(f'User {form.first_name.data} {form.last_name.data}has been created!You can now login in')
+        return redirect(url_for('login'))
     else:
         flash('Failed')
     return render_template('register.html',form=form)
