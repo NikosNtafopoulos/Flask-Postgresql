@@ -10,3 +10,12 @@ $ sudo -i -u postgres
 $ psql		#to launch the postgres shell program  
 postgres=# \du 				#shows actual users   
 postgres=# \d client                   #database table's name
+
+
+``generate a random secret key with python``  
+Open your terminal and type 
+``python3``  
+```
+import secrets
+secrets.token_hex(16) 
+```  
